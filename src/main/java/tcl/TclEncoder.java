@@ -2,8 +2,7 @@ package tcl;
 
 import org.jetbrains.annotations.NotNull;
 
-public final class Encoder {
-    private static final byte field_terminator = 0x1A;
+public final class TclEncoder implements TclBase {
 
     @NotNull
     public static byte[] generate_tcl_command(
