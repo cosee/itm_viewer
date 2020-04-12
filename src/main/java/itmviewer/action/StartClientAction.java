@@ -6,7 +6,6 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import itmviewer.service.TclService;
-import itmviewer.ui.ITMViewerToolWindow;
 import org.jetbrains.annotations.NotNull;
 
 public class StartClientAction extends AnAction implements DumbAware {
@@ -29,8 +28,6 @@ public class StartClientAction extends AnAction implements DumbAware {
         if (project == null) {
             return;
         }
-        TclService.getInstance(e.getProject()).openConnection();
-        ITMViewerToolWindow toolWindow = ServiceManager.getService(project, ITMViewerToolWindow.class);
-        toolWindow.recreateContent(project);
+        TclService.getInstance(project).openConnection();
     }
 }

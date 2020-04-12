@@ -19,6 +19,7 @@ import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.content.ContentManager;
 import com.intellij.util.ui.UIUtil;
 import itmviewer.service.TclService;
+import itmviewer.state.ITMSettingsState;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -75,38 +76,22 @@ public class ITMViewerToolWindow implements Disposable {
 
     private Content createConsoleView(@NotNull Project project, ContentFactory contentFactory) {
         consoleView = TextConsoleBuilderFactory.getInstance().createBuilder(project).getConsole();
-//        consoleView.print("asd\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
-//        consoleView.print("asd\n", ConsoleViewContentType.LOG_ERROR_OUTPUT);
-//        consoleView.print("asd\n", ConsoleViewContentType.LOG_DEBUG_OUTPUT);
-//        consoleView.print("asd\n", ConsoleViewContentType.LOG_WARNING_OUTPUT);
+        consoleView.print("ITM Viewer - Connect to TCL RPC Server to get started\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
+        consoleView.print("Configuration:\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
+        consoleView.print("\tERROR ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.ERROR) + "\n", ConsoleViewContentType.LOG_ERROR_OUTPUT);
+        consoleView.print("\tWARN ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN) + "\n", ConsoleViewContentType.LOG_WARNING_OUTPUT);
+        consoleView.print("\tINFO ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO) + "\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
+        consoleView.print("\tDEBUG ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG) + "\n", ConsoleViewContentType.LOG_DEBUG_OUTPUT);
         return createTab(contentFactory, consoleView.getComponent(), "ITM Viewer");
     }
-
 
     public void recreateContent(@NotNull Project project) {
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         contentManager.removeAllContents(true);
         Content content;
-        if(service != null && service.isConnected()){
-            content = createConsoleView(project, contentFactory);
-        } else {
-            content = createTab(contentFactory, createConnectionNotOpenedView("Please connect to the TCL RPC Server."), "");
-        }
+        content = createConsoleView(project, contentFactory);
         contentManager.addContent(content);
         return;
-    }
-
-
-    private JPanel createConnectionNotOpenedView(String message) {
-        JLabel label = new JBLabel();
-        label.setText(message);
-        JBPanel panel = new JBPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
-        c.anchor = GridBagConstraints.CENTER;
-        panel.add(label, c);
-        panel.setBackground(UIUtil.getTableBackground());
-        return panel;
     }
 
 }

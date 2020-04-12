@@ -5,12 +5,7 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import itmviewer.state.ITMSettingsState;
 import itmviewer.task.BackgroundClientTask;
-import itmviewer.ui.ITMViewerToolWindow;
 import org.jetbrains.annotations.NotNull;
-import tcl.client.TclTcpClient;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.concurrent.Future;
 
 public class TclService {
