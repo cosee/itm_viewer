@@ -21,14 +21,17 @@ import com.intellij.util.ui.UIUtil;
 import itmviewer.service.TclService;
 import itmviewer.state.ITMSettingsState;
 import org.jetbrains.annotations.NotNull;
+import tcl.parser.TclEntity;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class ITMViewerToolWindow implements Disposable {
     private ContentManager contentManager;
     ConsoleView consoleView = null;
     TclService service = null;
+    int lastLogPort = 0;
     private static final String[] ACTIONS = {"ReloadProject", "OpenSettings", "StartClient", "StopClient"};
 
     @Override
@@ -82,6 +85,7 @@ public class ITMViewerToolWindow implements Disposable {
         consoleView.print("\tWARN ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN) + "\n", ConsoleViewContentType.LOG_WARNING_OUTPUT);
         consoleView.print("\tINFO ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO) + "\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
         consoleView.print("\tDEBUG ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG) + "\n", ConsoleViewContentType.LOG_DEBUG_OUTPUT);
+
         return createTab(contentFactory, consoleView.getComponent(), "ITM Viewer");
     }
 
@@ -94,4 +98,35 @@ public class ITMViewerToolWindow implements Disposable {
         return;
     }
 
+    private ConsoleViewContentType getLogLevelByITMPort(int itmPort) {
+        int errorPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.ERROR);
+        int warnPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN);
+        int infoPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO);
+        int debugPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG);
+        if(itmPort == errorPort) {
+            return ConsoleViewContentType.LOG_ERROR_OUTPUT;
+        } else if(itmPort == warnPort) {
+            return ConsoleViewContentType.LOG_WARNING_OUTPUT;
+        } else if(itmPort == infoPort) {
+            return ConsoleViewContentType.LOG_INFO_OUTPUT;
+        } else if(itmPort == debugPort) {
+            return ConsoleViewContentType.LOG_DEBUG_OUTPUT;
+        } else {
+            return null;
+        }
+    }
+
+    public void addITMPackages(List<TclEntity> entities) {
+        for(TclEntity entity : entities) {
+            ConsoleViewContentType contentType = getLogLevelByITMPort(entity.getChannel());
+
+            if(contentType != null) {
+                if(lastLogPort != entity.getChannel()) {
+                    consoleView.print("\n", contentType);
+                }
+                consoleView.print(entity.getContent(), contentType);
+                lastLogPort = entity.getChannel();
+            }
+        }
+    }
 }

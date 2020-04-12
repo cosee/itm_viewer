@@ -1,8 +1,6 @@
 package itmviewer.state;
 
 import com.intellij.ide.util.PropertiesComponent;
-
-import java.util.Map.*;
 import java.util.Map;
 
 

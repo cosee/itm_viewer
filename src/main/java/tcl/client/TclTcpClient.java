@@ -26,28 +26,28 @@ public class TclTcpClient {
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
     }
 
-    public byte[] read() {
+    public byte[] read() throws IOException {
         StringBuilder sb = new StringBuilder();
-        try {
-            int ch = in.read();
-            while (ch != 0) {
-                sb.append((char) ch);
-                if(ch == TclBase.field_terminator) {
-                    break;
-                }
+
+        int ch = in.read();
+        sb.append((char) ch);
+        while (ch != 0) {
+            ch = in.read();
+            sb.append((char) ch);
+            if (ch == TclBase.field_terminator) {
+                break;
             }
-            return sb.toString().getBytes();
-        } catch (InterruptedIOException ex) {
-            System.err.println("timeout!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            return null;
         }
+        return sb.toString().getBytes();
+
+    }
+
+    public byte readChar() throws IOException {
+        return (byte) in.read();
     }
 
     public void write(byte[] data) throws IOException {
-        if(client == null) {
+        if (client == null) {
             return;
         }
         out.write(data);
@@ -58,7 +58,7 @@ public class TclTcpClient {
     }
 
     public void close() throws IOException {
-        if(client != null){
+        if (client != null) {
             client.close();
             client = null;
         }
