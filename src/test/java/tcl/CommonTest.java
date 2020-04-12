@@ -1,6 +1,7 @@
 package tcl;
 
 import org.junit.Test;
+import tcl.parser.Common;
 
 import static org.junit.Assert.*;
 import java.util.Arrays;

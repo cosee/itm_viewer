@@ -1,6 +1,7 @@
 package tcl;
 
 import org.junit.Test;
+import tcl.parser.TclEncoder;
 
 import java.util.Arrays;
 

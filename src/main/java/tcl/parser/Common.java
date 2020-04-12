@@ -1,4 +1,4 @@
-package tcl;
+package tcl.parser;
 
 import org.jetbrains.annotations.NotNull;
 

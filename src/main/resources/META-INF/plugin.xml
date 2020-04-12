@@ -13,16 +13,16 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable groupId="build" displayName="ITM Viewer Settings" id="itm" instance="itmviewer.ui.ITMViewerSettings"/>
         <projectService serviceImplementation="itmviewer.ui.ITMViewerToolWindow"/>
         <toolWindow id="itm_viewer" anchor="bottom" factoryClass="itmviewer.ui.ITMViewerToolWindowFactory"/>
+        <projectService serviceImplementation="itmviewer.service.TclService"/>
     </extensions>
 
     <actions>
-        <action id="Conan.ReloadProject" class="itmviewer.action.ReloadProjectAction" text="Reload" description="Reload Conan project" icon="AllIcons.Actions.Refresh"/>
-
-        <group id="MyPlugin.SampleMenu" text="Greeting" description="Greeting menu">
-            <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="Myplugin.Textboxes" class="HelloAction" text="Hello" description="Says hello"/>
-        </group>
+        <action id="ITMViewer.ReloadProject" class="itmviewer.action.ReloadProjectAction" text="Retry Connect" description="Retry connection to TCL Server" icon="AllIcons.Actions.Refresh"/>
+        <action id="ITMViewer.OpenSettings" class="itmviewer.action.OpenSettingsAction" text="Open Settings" description="Open settings" icon="AllIcons.General.Settings"/>
+        <action id="ITMViewer.StartClient" class="itmviewer.action.StartClientAction" text="Start Client" description="Start Client" icon="AllIcons.RunConfigurations.TestState.Run"/>
+        <action id="ITMViewer.StopClient" class="itmviewer.action.StopClientAction" text="Start Client" description="Stop Client" icon="AllIcons.Process.Stop"/>
     </actions>
 </idea-plugin>
