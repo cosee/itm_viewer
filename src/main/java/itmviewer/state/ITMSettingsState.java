@@ -16,10 +16,10 @@ public final class ITMSettingsState {
         ERROR
     }
 
-    public final static Map<LOGGING_LEVEL, Integer> itmDefaultLogPorts = Map.ofEntries(Map.entry(LOGGING_LEVEL.DEBUG, 0),
-            Map.entry(LOGGING_LEVEL.INFO, 1),
-            Map.entry(LOGGING_LEVEL.WARN, 2),
-            Map.entry(LOGGING_LEVEL.ERROR, 3));
+    public final static Map<LOGGING_LEVEL, Integer> itmDefaultLogPorts = Map.ofEntries(Map.entry(LOGGING_LEVEL.DEBUG, 3),
+            Map.entry(LOGGING_LEVEL.INFO, 4),
+            Map.entry(LOGGING_LEVEL.WARN, 5),
+            Map.entry(LOGGING_LEVEL.ERROR, 6));
 
     public static String getTclHost() {
         return PropertiesComponent.getInstance().getValue(itmTclHostKey);

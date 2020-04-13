@@ -31,7 +31,7 @@ public class BackgroundClientTask implements Runnable {
     }
 
     public boolean clientIsConnected() {
-        if(tcpClient == null) {
+        if (tcpClient == null) {
             return false;
         }
         return tcpClient.isConnected();
@@ -47,16 +47,16 @@ public class BackgroundClientTask implements Runnable {
         tcpClient.open(host, Integer.parseInt(port));
         boolean initSuccess = initTclTraceData();
         // TODO: add retry logic
-        if(!initSuccess) {
+        if (!initSuccess) {
             return;
         }
-        while(!Thread.currentThread().isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted()) {
             byte[] tclLine = tcpClient.read();
-            if(tclLine == null) {
+            if (tclLine == null) {
                 continue;
             }
             byte[] itmLine = TclDecoder.parseTclData(tclLine);
-            if(itmLine == null) {
+            if (itmLine == null) {
                 continue;
             }
             List<TclEntity> entities = ITMDecoder.parseITMData(itmLine);
@@ -71,7 +71,7 @@ public class BackgroundClientTask implements Runnable {
         } catch (IOException e) {
             Thread.currentThread().interrupt();
         } finally {
-            if(tcpClient != null) {
+            if (tcpClient != null) {
                 try {
                     tcpClient.close();
                 } catch (IOException e) {

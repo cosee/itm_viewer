@@ -25,6 +25,9 @@ import tcl.parser.TclEntity;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class ITMViewerToolWindow implements Disposable {
@@ -79,13 +82,14 @@ public class ITMViewerToolWindow implements Disposable {
 
     private Content createConsoleView(@NotNull Project project, ContentFactory contentFactory) {
         consoleView = TextConsoleBuilderFactory.getInstance().createBuilder(project).getConsole();
-        consoleView.print("ITM Viewer - Connect to TCL RPC Server to get started\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
-        consoleView.print("Configuration:\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
+
+        String timestamp = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("uuuu.MM.dd.HH.mm.ss"));
+        consoleView.print(timestamp + ": ITM Viewer - Connect to TCL RPC Server to get started\n", ConsoleViewContentType.SYSTEM_OUTPUT);
+        consoleView.print("Configuration:\n", ConsoleViewContentType.SYSTEM_OUTPUT);
         consoleView.print("\tERROR ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.ERROR) + "\n", ConsoleViewContentType.LOG_ERROR_OUTPUT);
         consoleView.print("\tWARN ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN) + "\n", ConsoleViewContentType.LOG_WARNING_OUTPUT);
         consoleView.print("\tINFO ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO) + "\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
         consoleView.print("\tDEBUG ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG) + "\n", ConsoleViewContentType.LOG_DEBUG_OUTPUT);
-
         return createTab(contentFactory, consoleView.getComponent(), "ITM Viewer");
     }
 
@@ -103,13 +107,13 @@ public class ITMViewerToolWindow implements Disposable {
         int warnPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN);
         int infoPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO);
         int debugPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG);
-        if(itmPort == errorPort) {
+        if (itmPort == errorPort) {
             return ConsoleViewContentType.LOG_ERROR_OUTPUT;
-        } else if(itmPort == warnPort) {
+        } else if (itmPort == warnPort) {
             return ConsoleViewContentType.LOG_WARNING_OUTPUT;
-        } else if(itmPort == infoPort) {
+        } else if (itmPort == infoPort) {
             return ConsoleViewContentType.LOG_INFO_OUTPUT;
-        } else if(itmPort == debugPort) {
+        } else if (itmPort == debugPort) {
             return ConsoleViewContentType.LOG_DEBUG_OUTPUT;
         } else {
             return null;
@@ -117,12 +121,13 @@ public class ITMViewerToolWindow implements Disposable {
     }
 
     public void addITMPackages(List<TclEntity> entities) {
-        for(TclEntity entity : entities) {
+        for (TclEntity entity : entities) {
             ConsoleViewContentType contentType = getLogLevelByITMPort(entity.getChannel());
 
-            if(contentType != null) {
-                if(lastLogPort != entity.getChannel()) {
-                    consoleView.print("\n", contentType);
+            if (contentType != null) {
+                if (lastLogPort != entity.getChannel()) {
+                    String timestamp = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("uuuu.MM.dd.HH.mm.ss"));
+                    consoleView.print("\n"+timestamp, contentType);
                 }
                 consoleView.print(entity.getContent(), contentType);
                 lastLogPort = entity.getChannel();

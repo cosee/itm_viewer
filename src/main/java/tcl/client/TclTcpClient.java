@@ -10,7 +10,7 @@ import java.net.Socket;
 public class TclTcpClient {
     private Socket client = null;
     private OutputStream out;
-    private BufferedReader in;
+    private InputStreamReader in;
 
     public TclTcpClient(@NotNull String host, @NotNull int port) throws IOException {
         open(host, port);
@@ -23,7 +23,7 @@ public class TclTcpClient {
     public void open(@NotNull String host, @NotNull int port) throws IOException {
         client = new Socket(host, port);
         out = client.getOutputStream();
-        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        in = new InputStreamReader(client.getInputStream());
     }
 
     public byte[] read() throws IOException {
@@ -39,7 +39,6 @@ public class TclTcpClient {
             }
         }
         return sb.toString().getBytes();
-
     }
 
     public byte readChar() throws IOException {
