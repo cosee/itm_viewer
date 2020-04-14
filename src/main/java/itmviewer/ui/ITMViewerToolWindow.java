@@ -35,11 +35,24 @@ public class ITMViewerToolWindow implements Disposable {
     ConsoleView consoleView = null;
     TclService service = null;
     int lastLogPort = 0;
-    private static final String[] ACTIONS = {"ReloadProject", "OpenSettings", "StartClient", "StopClient"};
+    private static final String[] ACTIONS = {"ClearConsole", "OpenSettings", "StartClient", "StopClient"};
 
     @Override
     public void dispose() {
 
+    }
+
+    public void notifyOnTraceInitSuccess() {
+        printMessageWithHeader("Activated Trace Data Output from RPC Server\n", ConsoleViewContentType.SYSTEM_OUTPUT);
+
+    }
+
+    public void notifyOnTraceInitFail() {
+        printMessageWithHeader("FAILED to activate Trace Data Output from RPC Server\n", ConsoleViewContentType.ERROR_OUTPUT);
+    }
+
+    public void notifyOnConnect() {
+        printMessageWithHeader("Opened Connection to "+ITMSettingsState.getTclHost()+":"+ITMSettingsState.getTclPort() + "\n", ConsoleViewContentType.SYSTEM_OUTPUT);
     }
 
     public void initToolWindow(Project project, ToolWindow toolWindow) {
@@ -76,21 +89,28 @@ public class ITMViewerToolWindow implements Disposable {
         return content;
     }
 
-    public void addMessage(String message) {
-        consoleView.print(message, ConsoleViewContentType.LOG_ERROR_OUTPUT);
+    public void printHeader(ConsoleViewContentType level) {
+        String timestamp = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        consoleView.print("[" + timestamp + "]: ", level);
+    }
+
+    public void printMessageWithHeader(String message, ConsoleViewContentType level) {
+        printHeader(level);
+        consoleView.print(message, level);
+    }
+    public void printMessageOnly(String message, ConsoleViewContentType level) {
+        consoleView.print(message, level);
     }
 
     private Content createConsoleView(@NotNull Project project, ContentFactory contentFactory) {
         consoleView = TextConsoleBuilderFactory.getInstance().createBuilder(project).getConsole();
-
-        String timestamp = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("uuuu.MM.dd.HH.mm.ss"));
-        consoleView.print(timestamp + ": ITM Viewer - Connect to TCL RPC Server to get started\n", ConsoleViewContentType.SYSTEM_OUTPUT);
-        consoleView.print("Configuration:\n", ConsoleViewContentType.SYSTEM_OUTPUT);
-        consoleView.print("\tERROR ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.ERROR) + "\n", ConsoleViewContentType.LOG_ERROR_OUTPUT);
-        consoleView.print("\tWARN ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN) + "\n", ConsoleViewContentType.LOG_WARNING_OUTPUT);
-        consoleView.print("\tINFO ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO) + "\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
-        consoleView.print("\tDEBUG ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG) + "\n", ConsoleViewContentType.LOG_DEBUG_OUTPUT);
-        return createTab(contentFactory, consoleView.getComponent(), "ITM Viewer");
+        printMessageWithHeader( "ITM Viewer - Connect to TCL RPC Server to get started\n", ConsoleViewContentType.SYSTEM_OUTPUT);
+        printMessageOnly("Configuration:\n", ConsoleViewContentType.SYSTEM_OUTPUT);
+        printMessageOnly("\tERROR ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.ERROR) + "\n", ConsoleViewContentType.LOG_ERROR_OUTPUT);
+        printMessageOnly("\tWARN ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN) + "\n", ConsoleViewContentType.LOG_WARNING_OUTPUT);
+        printMessageOnly("\tINFO ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO) + "\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
+        printMessageOnly("\tDEBUG ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG) + "\n", ConsoleViewContentType.LOG_DEBUG_OUTPUT);
+        return createTab(contentFactory, consoleView.getComponent(), "Output");
     }
 
     public void recreateContent(@NotNull Project project) {
@@ -134,4 +154,5 @@ public class ITMViewerToolWindow implements Disposable {
             }
         }
     }
+
 }

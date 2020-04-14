@@ -2,7 +2,6 @@ package itmviewer.task;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
-import itmviewer.ui.ITMViewerSettings;
 import itmviewer.ui.ITMViewerToolWindow;
 import tcl.client.TclTcpClient;
 import tcl.commands.StartTraceCommand;
@@ -45,11 +44,14 @@ public class BackgroundClientTask implements Runnable {
     public void runTclServer() throws IOException {
         tcpClient = new TclTcpClient();
         tcpClient.open(host, Integer.parseInt(port));
+        toolWindow.notifyOnConnect();
         boolean initSuccess = initTclTraceData();
         // TODO: add retry logic
         if (!initSuccess) {
+            toolWindow.notifyOnTraceInitFail();
             return;
         }
+        toolWindow.notifyOnTraceInitSuccess();
         while (!Thread.currentThread().isInterrupted()) {
             byte[] tclLine = tcpClient.read();
             if (tclLine == null) {

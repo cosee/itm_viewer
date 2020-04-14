@@ -1,11 +1,10 @@
 <idea-plugin>
-    <id>org.example.itm_viewer</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <id>org.cosee.itm_viewer</id>
+    <name>ITM Viewer</name>
+    <vendor email="mohamad.ramadan@cosee.biz" url="https://www.cosee.biz">cosee</vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    This plugin allows the integration of ITM Logging in your OpenOCD Project.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -15,12 +14,12 @@
     <extensions defaultExtensionNs="com.intellij">
         <projectConfigurable groupId="build" displayName="ITM Viewer Settings" id="itm" instance="itmviewer.ui.ITMViewerSettings"/>
         <projectService serviceImplementation="itmviewer.ui.ITMViewerToolWindow"/>
-        <toolWindow id="itm_viewer" anchor="bottom" factoryClass="itmviewer.ui.ITMViewerToolWindowFactory"/>
+        <toolWindow id="ITM Viewer" anchor="bottom" factoryClass="itmviewer.ui.ITMViewerToolWindowFactory"/>
         <projectService serviceImplementation="itmviewer.service.TclService"/>
     </extensions>
 
     <actions>
-        <action id="ITMViewer.ReloadProject" class="itmviewer.action.ReloadProjectAction" text="Retry Connect" description="Retry connection to TCL Server" icon="AllIcons.Actions.Refresh"/>
+        <action id="ITMViewer.ClearConsole" class="itmviewer.action.ClearConsoleAction" text="Clear Console" description="Clears console but keeps connection if already opened" icon="AllIcons.Actions.Refresh"/>
         <action id="ITMViewer.OpenSettings" class="itmviewer.action.OpenSettingsAction" text="Open Settings" description="Open settings" icon="AllIcons.General.Settings"/>
         <action id="ITMViewer.StartClient" class="itmviewer.action.StartClientAction" text="Start Client" description="Start Client" icon="AllIcons.RunConfigurations.TestState.Run"/>
         <action id="ITMViewer.StopClient" class="itmviewer.action.StopClientAction" text="Start Client" description="Stop Client" icon="AllIcons.Process.Stop"/>

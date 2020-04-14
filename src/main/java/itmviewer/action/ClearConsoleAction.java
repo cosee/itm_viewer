@@ -7,7 +7,7 @@ import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import itmviewer.ui.ITMViewerToolWindow;
 
-public class ReloadProjectAction extends AnAction implements DumbAware {
+public class ClearConsoleAction extends AnAction implements DumbAware {
 
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
