@@ -21,7 +21,7 @@
     <actions>
         <action id="ITMViewer.ClearConsole" class="itmviewer.action.ClearConsoleAction" text="Clear Console" description="Clears console but keeps connection if already opened" icon="AllIcons.Actions.Refresh"/>
         <action id="ITMViewer.OpenSettings" class="itmviewer.action.OpenSettingsAction" text="Open Settings" description="Open settings" icon="AllIcons.General.Settings"/>
-        <action id="ITMViewer.StartClient" class="itmviewer.action.StartClientAction" text="Start Client" description="Start Client" icon="AllIcons.RunConfigurations.TestState.Run"/>
-        <action id="ITMViewer.StopClient" class="itmviewer.action.StopClientAction" text="Start Client" description="Stop Client" icon="AllIcons.Process.Stop"/>
+        <action id="ITMViewer.StartClient" class="itmviewer.action.StartClientAction" text="Start Client" description="Start client" icon="AllIcons.RunConfigurations.TestState.Run"/>
+        <action id="ITMViewer.StopClient" class="itmviewer.action.StopClientAction" text="Stop Client" description="Stop client" icon="AllIcons.Process.Stop"/>
     </actions>
 </idea-plugin>

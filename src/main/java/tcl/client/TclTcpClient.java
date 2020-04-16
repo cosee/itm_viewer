@@ -5,6 +5,7 @@ import tcl.parser.TclBase;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 
 
 public class TclTcpClient {
@@ -18,6 +19,12 @@ public class TclTcpClient {
 
     public TclTcpClient() {
 
+    }
+
+    public void setTimeout(int timeout) throws SocketException {
+        if(client != null) {
+            client.setSoTimeout(timeout);
+        }
     }
 
     public void open(@NotNull String host, @NotNull int port) throws IOException {
@@ -59,6 +66,7 @@ public class TclTcpClient {
     public void close() throws IOException {
         if (client != null) {
             client.close();
+            in.close();
             client = null;
         }
     }

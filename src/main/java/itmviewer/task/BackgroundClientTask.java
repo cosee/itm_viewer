@@ -37,8 +37,19 @@ public class BackgroundClientTask implements Runnable {
     }
 
     public boolean initTclTraceData() throws IOException {
+        tcpClient.setTimeout(3000);
         tcpClient.write(new StartTraceCommand().generateCommand());
-        return tcpClient.readChar() == TclBase.field_terminator;
+        boolean receivedTerminator = tcpClient.readChar() == TclBase.field_terminator;
+        tcpClient.setTimeout(0);
+        return receivedTerminator;
+    }
+
+    public void closeConnection() throws IOException {
+        if(tcpClient != null) {
+            tcpClient.close();
+            tcpClient = null;
+            toolWindow.notifyOnServerClose();
+        }
     }
 
     public void runTclServer() throws IOException {
@@ -62,8 +73,11 @@ public class BackgroundClientTask implements Runnable {
                 continue;
             }
             List<TclEntity> entities = ITMDecoder.parseITMData(itmLine);
-            toolWindow.addITMPackages(entities);
+            if(entities != null) {
+                toolWindow.addITMPackages(entities);
+            }
         }
+        closeConnection();
     }
 
     @Override
@@ -73,12 +87,10 @@ public class BackgroundClientTask implements Runnable {
         } catch (IOException e) {
             Thread.currentThread().interrupt();
         } finally {
-            if (tcpClient != null) {
-                try {
-                    tcpClient.close();
-                } catch (IOException e) {
-                    System.out.println("Encountered error when closing");
-                }
+            try {
+                closeConnection();
+            } catch (IOException e) {
+                System.out.println("Encountered error when closing");
             }
         }
     }

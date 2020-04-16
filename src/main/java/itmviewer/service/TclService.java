@@ -6,6 +6,8 @@ import com.intellij.openapi.project.Project;
 import itmviewer.state.ITMSettingsState;
 import itmviewer.task.BackgroundClientTask;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.concurrent.Future;
 
 public class TclService {
@@ -23,17 +25,26 @@ public class TclService {
     public boolean openConnection() {
         String host = ITMSettingsState.getTclHost();
         String port = ITMSettingsState.getTclPort();
-        task = new BackgroundClientTask(project, host, port);
-        threadFuture = ApplicationManager.getApplication().executeOnPooledThread(task);
-        return true;
+        if(!isConnected()) {
+            task = new BackgroundClientTask(project, host, port);
+            threadFuture = ApplicationManager.getApplication().executeOnPooledThread(task);
+            return true;
+        }
+        return false;
     }
 
     public boolean closeConnection() {
         boolean result = false;
         if(threadFuture != null) {
+            try {
+                task.closeConnection();
+            } catch (IOException e) {
+                return false;
+            }
             result = threadFuture.cancel(true);
             threadFuture = null;
             task = null;
+
         }
         return result;
     }

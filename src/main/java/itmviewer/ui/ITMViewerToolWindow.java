@@ -34,7 +34,7 @@ public class ITMViewerToolWindow implements Disposable {
     private ContentManager contentManager;
     ConsoleView consoleView = null;
     TclService service = null;
-    int lastLogPort = 0;
+    TclEntity lastEntity = null;
     private static final String[] ACTIONS = {"ClearConsole", "OpenSettings", "StartClient", "StopClient"};
 
     @Override
@@ -49,6 +49,11 @@ public class ITMViewerToolWindow implements Disposable {
 
     public void notifyOnTraceInitFail() {
         printMessageWithHeader("FAILED to activate Trace Data Output from RPC Server\n", ConsoleViewContentType.ERROR_OUTPUT);
+    }
+
+
+    public void notifyOnServerClose() {
+        printMessageWithHeader("Closed Connection to Server\n", ConsoleViewContentType.SYSTEM_OUTPUT);
     }
 
     public void notifyOnConnect() {
@@ -140,17 +145,18 @@ public class ITMViewerToolWindow implements Disposable {
         }
     }
 
-    public void addITMPackages(List<TclEntity> entities) {
+    public void addITMPackages(@NotNull List<TclEntity> entities) {
         for (TclEntity entity : entities) {
             ConsoleViewContentType contentType = getLogLevelByITMPort(entity.getChannel());
 
             if (contentType != null) {
-                if (lastLogPort != entity.getChannel()) {
-                    String timestamp = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("uuuu.MM.dd.HH.mm.ss"));
-                    consoleView.print("\n"+timestamp, contentType);
+                if (lastEntity == null || (lastEntity.getChannel() != entity.getChannel() || lastEntity.getContent().endsWith("\n"))) {
+                    printMessageWithHeader(entity.getContent(), contentType);
                 }
-                consoleView.print(entity.getContent(), contentType);
-                lastLogPort = entity.getChannel();
+                else {
+                    printMessageOnly(entity.getContent(), contentType);
+                }
+                lastEntity = entity;
             }
         }
     }
