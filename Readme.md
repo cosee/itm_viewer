@@ -79,7 +79,9 @@ The zip is available under Github Releases. The plugin will be published over th
 
 * **Mohamad Ramadan** - [ramdadam](https://github.com/ramdadam)
 
-Also big thanks to my colleagues at cosee for helping me out :) 
+Thanks for the awesome work with [cmake-conan](https://github.com/conan-io/cmake-conan) that helped me get started.
+ 
+Also big thanks to my colleagues at cosee for helping me out with the Java stuff :) 
 
 ## License
 
