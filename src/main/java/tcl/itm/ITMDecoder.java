@@ -18,7 +18,7 @@ public final class ITMDecoder implements ITMBase {
      * @param size_field: ITM packet size bit field
      * @return size in bytes
      */
-    private static int getITMSize(byte size_field) {
+    private static int getITMSize(int size_field) {
         if (size_field == 0x1) {
             return 1;
         } else if (size_field == 0x2) {
@@ -37,12 +37,12 @@ public final class ITMDecoder implements ITMBase {
         List<TclEntity> itmPackages = new ArrayList<TclEntity>();
         for (int i = 0; i < itm_data.length; ) {
 
-            byte header = itm_data[i];
-            byte mandatory_field = (byte) (header & header_mandatory_field_bitmask);
-            byte source = (byte) (header & header_source_address_bitmask);
-            source = (byte) (source >> header_source_address_shift_offset);
+            int header = itm_data[i];
+            int mandatory_field = (byte) (header & header_mandatory_field_bitmask);
+            int source = (header & header_source_address_bitmask);
+            source = (source >> header_source_address_shift_offset);
 
-            byte size_field = (byte) (header & header_size_bitmask);
+            int size_field = (byte) (header & header_size_bitmask);
             if (size_field != 0 && mandatory_field == header_mandatory_field_value) {
                 int size = getITMSize(size_field);
                 if (size == 0) {
