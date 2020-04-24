@@ -1,4 +1,4 @@
-⚡ Check out my (german) remote talk about embedded development. We will start with a quick kick-start and get into debugging practices. Sign up @ bit.ly/3eQUQlM
+⚡ Check out my (german) remote talk about embedded development. We will start with a quick kick-start and get into debugging practices. Sign up [here](https://www.eventbrite.de/e/embedded-entwicklung-ist-hart-aber-wir-sind-harter-tickets-99012865145?aff=mc)
 # ITM Viewer
 
 ITM Viewer allows you to view the messages sent through the ARM ITM data channels.
