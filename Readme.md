@@ -1,3 +1,4 @@
+⚡ Check out my (german) remote talk about embedded development. We will start with a quick kick-start and get into debugging practices. Sign up @ bit.ly/3eQUQlM
 # ITM Viewer
 
 ITM Viewer allows you to view the messages sent through the ARM ITM data channels.
@@ -72,8 +73,17 @@ void itm_test(void *pvParameters) {
 ```
 
 ### Installing
-For now follow the installation path described [here](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk).
-The zip is available under Github Releases. The plugin will be published over the JetBrains Plugins Repository.
+#### JetBrains Plugin Repository
+ITM Viewer is availabe in the JetBrains Plugin Repository https://plugins.jetbrains.com/plugin/14163-itm-viewer.
+
+#### Manual
+The plugin uses the jetbrains gradle plugin template. In order to build it you have to pull the dependencies and build the release version:
+
+`gradle buildPlugin`
+
+To install from disk follow this guide: [here](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk)
+
+*The zipped plugin is also available under Github Releases*
 
 ## Authors
 
