@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.concurrent.Future;
 
 public class TclService {
-    Project project;
+    final Project project;
     BackgroundClientTask task = null;
     Future threadFuture = null;
     public TclService(Project project) {

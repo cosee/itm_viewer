@@ -42,7 +42,7 @@ public final class ITMSettingsState {
     }
 
     public static int getLogLevelPort(LOGGING_LEVEL level) {
-        String portStr = PropertiesComponent.getInstance().getValue(itmLogPortKey+level.name());
+        String portStr = PropertiesComponent.getInstance().getValue(itmLogPortKey + level.name());
         if (portStr != null) {
             return Integer.parseInt(portStr);
         }

@@ -7,17 +7,15 @@ import com.intellij.openapi.project.Project;
 import itmviewer.service.TclService;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class StopClientAction extends AnAction implements DumbAware {
 
     @Override
     public void update(@NotNull AnActionEvent e) {
         super.update(e);
         Project project = e.getProject();
-        if(project != null && project.getService(TclService.class).isConnected()) {
-            e.getPresentation().setEnabled(true);
-        } else {
-            e.getPresentation().setEnabled(false);
-        }
+        e.getPresentation().setEnabled(project != null && project.getService(TclService.class).isConnected());
     }
 
     @Override
@@ -26,7 +24,7 @@ public class StopClientAction extends AnAction implements DumbAware {
         if (project == null) {
             return;
         }
-        if(TclService.getInstance(e.getProject()).closeConnection()) {
+        if(TclService.getInstance(Objects.requireNonNull(e.getProject())).closeConnection()) {
             e.getPresentation().setEnabled(false);
         }
     }

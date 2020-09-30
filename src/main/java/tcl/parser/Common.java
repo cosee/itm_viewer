@@ -6,7 +6,7 @@ public class Common {
     @NotNull
     public static byte[] concatByte(
             @NotNull byte[] barr,
-            @NotNull byte b) {
+            byte b) {
         byte[] res = new byte[barr.length + 1];
         System.arraycopy(barr,0, res, 0, barr.length);
         res[res.length - 1] = b;

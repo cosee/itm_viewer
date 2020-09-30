@@ -13,7 +13,7 @@ public class TclTcpClient {
     private OutputStream out;
     private InputStreamReader in;
 
-    public TclTcpClient(@NotNull String host, @NotNull int port) throws IOException {
+    public TclTcpClient(@NotNull String host, int port) throws IOException {
         open(host, port);
     }
 
@@ -27,7 +27,7 @@ public class TclTcpClient {
         }
     }
 
-    public void open(@NotNull String host, @NotNull int port) throws IOException {
+    public void open(@NotNull String host, int port) throws IOException {
         client = new Socket(host, port);
         out = client.getOutputStream();
         in = new InputStreamReader(client.getInputStream());

@@ -13,11 +13,7 @@ public class StartClientAction extends AnAction implements DumbAware {
         super.update(e);
 
         Project project = e.getProject();
-        if (project != null && project.getService(TclService.class).isConnected()) {
-            e.getPresentation().setEnabled(false);
-        } else {
-            e.getPresentation().setEnabled(true);
-        }
+        e.getPresentation().setEnabled(project == null || !project.getService(TclService.class).isConnected());
     }
 
     @Override

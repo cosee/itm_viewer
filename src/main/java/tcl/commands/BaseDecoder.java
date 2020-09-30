@@ -7,5 +7,5 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 public interface BaseDecoder {
-    public List<TclEntity> decodeCommand(@NotNull ByteBuffer bb);
+    List<TclEntity> decodeCommand(@NotNull ByteBuffer bb);
 }
