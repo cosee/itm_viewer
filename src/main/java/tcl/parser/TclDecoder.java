@@ -6,8 +6,8 @@ import javax.xml.bind.DatatypeConverter;
 import java.nio.ByteBuffer;
 
 public final class TclDecoder implements TclBase {
-    private static byte[] trace_data_preamble = new String("type target_trace data ").getBytes();
-    private static byte[] trace_data_termination = new byte[]{0x0d, 0x0a, 0x1a};
+    private static final byte[] trace_data_preamble = "type target_trace data ".getBytes();
+    private static final byte[] trace_data_termination = new byte[]{0x0d, 0x0a, 0x1a};
 
 
     public static boolean rewindToTraceDataHeader(@NotNull ByteBuffer bb) {

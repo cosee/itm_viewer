@@ -24,4 +24,6 @@
         <action id="ITMViewer.StartClient" class="itmviewer.action.StartClientAction" text="Start Client" description="Start client" icon="AllIcons.RunConfigurations.TestState.Run"/>
         <action id="ITMViewer.StopClient" class="itmviewer.action.StopClientAction" text="Stop Client" description="Stop client" icon="AllIcons.Process.Stop"/>
     </actions>
+
+    <!-- TODO add pluginIcon.svg -->
 </idea-plugin>

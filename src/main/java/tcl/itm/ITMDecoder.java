@@ -34,7 +34,7 @@ public final class ITMDecoder implements ITMBase {
         if (itm_data.length == 0) {
             return null;
         }
-        List<TclEntity> itmPackages = new ArrayList<TclEntity>();
+        List<TclEntity> itmPackages = new ArrayList<>();
         for (int i = 0; i < itm_data.length; ) {
 
             int header = itm_data[i];

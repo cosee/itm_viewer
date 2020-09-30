@@ -12,22 +12,17 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.ui.components.JBLabel;
-import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.content.ContentManager;
-import com.intellij.util.ui.UIUtil;
 import itmviewer.service.TclService;
 import itmviewer.state.ITMSettingsState;
 import org.jetbrains.annotations.NotNull;
 import tcl.parser.TclEntity;
 
 import javax.swing.*;
-import java.awt.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 public class ITMViewerToolWindow implements Disposable {
@@ -57,7 +52,7 @@ public class ITMViewerToolWindow implements Disposable {
     }
 
     public void notifyOnConnect() {
-        printMessageWithHeader("Opened Connection to "+ITMSettingsState.getTclHost()+":"+ITMSettingsState.getTclPort() + "\n", ConsoleViewContentType.SYSTEM_OUTPUT);
+        printMessageWithHeader("Opened Connection to " + ITMSettingsState.getTclHost() + ":" + ITMSettingsState.getTclPort() + "\n", ConsoleViewContentType.SYSTEM_OUTPUT);
     }
 
     public void initToolWindow(Project project, ToolWindow toolWindow) {
@@ -124,7 +119,6 @@ public class ITMViewerToolWindow implements Disposable {
         Content content;
         content = createConsoleView(project, contentFactory);
         contentManager.addContent(content);
-        return;
     }
 
     private ConsoleViewContentType getLogLevelByITMPort(int itmPort) {
@@ -152,8 +146,7 @@ public class ITMViewerToolWindow implements Disposable {
             if (contentType != null) {
                 if (lastEntity == null || (lastEntity.getChannel() != entity.getChannel() || lastEntity.getContent().endsWith("\n"))) {
                     printMessageWithHeader(entity.getContent(), contentType);
-                }
-                else {
+                } else {
                     printMessageOnly(entity.getContent(), contentType);
                 }
                 lastEntity = entity;
