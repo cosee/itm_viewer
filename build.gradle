@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.16'
+    id 'org.jetbrains.intellij' version '0.4.26'
 }
 
 group 'org.cosee'
@@ -24,7 +24,7 @@ test {
 }
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2019.3'
+    version '2020.2'
     type 'CL'
 }
 
