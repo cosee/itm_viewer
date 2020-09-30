@@ -29,6 +29,7 @@ intellij {
 }
 
 patchPluginXml {
+    untilBuild '' // remove until-build from XML
     changeNotes """
       First release"""
 }
