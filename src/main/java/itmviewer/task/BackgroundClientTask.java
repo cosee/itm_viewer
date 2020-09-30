@@ -16,15 +16,13 @@ import java.util.List;
 
 public class BackgroundClientTask implements Runnable {
     TclTcpClient tcpClient = null;
-    private String host;
-    private String port;
-    private Project project;
+    private final String host;
+    private final String port;
 
-    ITMViewerToolWindow toolWindow;
+    final ITMViewerToolWindow toolWindow;
 
     public BackgroundClientTask(Project project, String host, String port) {
         this.toolWindow = ServiceManager.getService(project, ITMViewerToolWindow.class);
-        this.project = project;
         this.host = host;
         this.port = port;
     }
