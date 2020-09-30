@@ -8,6 +8,7 @@ public final class ITMSettingsState {
     private static final String itmTclHostKey = "itmviewer-settings-tclhost";
     private static final String itmTclPortKey = "itmviewer-settings-tclport";
     private static final String itmLogPortKey = "itmviewer-settings-itmlogport-";
+    private static final String itmLogPortEnabledKey = "itmviewer-settings-itmlogport-enabled-";
 
     public enum LOGGING_LEVEL {
         DEBUG,
@@ -48,4 +49,17 @@ public final class ITMSettingsState {
         }
         return itmDefaultLogPorts.get(level);
     }
+
+    public static void setLogLevelEnabled(LOGGING_LEVEL level, boolean enabled) {
+        PropertiesComponent.getInstance().setValue(itmLogPortEnabledKey + level.name(), enabled, true);
+    }
+
+    public static boolean getLogLevelEnabled(LOGGING_LEVEL level) {
+        String enabledStr = PropertiesComponent.getInstance().getValue(itmLogPortEnabledKey + level.name());
+        if (enabledStr != null) {
+            return Boolean.parseBoolean(enabledStr);
+        }
+        return true;
+    }
+
 }
