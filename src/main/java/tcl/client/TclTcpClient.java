@@ -1,5 +1,6 @@
 package tcl.client;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import tcl.parser.TclBase;
 
@@ -7,7 +8,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 
-
+@NoArgsConstructor
 public class TclTcpClient {
     private Socket client = null;
     private OutputStream out;
@@ -15,10 +16,6 @@ public class TclTcpClient {
 
     public TclTcpClient(@NotNull String host, int port) throws IOException {
         open(host, port);
-    }
-
-    public TclTcpClient() {
-
     }
 
     public void setTimeout(int timeout) throws SocketException {

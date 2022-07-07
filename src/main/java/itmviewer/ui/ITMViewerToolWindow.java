@@ -107,17 +107,17 @@ public class ITMViewerToolWindow implements Disposable {
         consoleView = TextConsoleBuilderFactory.getInstance().createBuilder(project).getConsole();
         printMessageWithHeader("ITM Viewer - Connect to TCL RPC Server to get started\n", ConsoleViewContentType.SYSTEM_OUTPUT);
         printMessageOnly("Configuration:\n", ConsoleViewContentType.SYSTEM_OUTPUT);
-        if (ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.ERROR)) {
-            printMessageOnly("\tERROR ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.ERROR) + "\n", ConsoleViewContentType.LOG_ERROR_OUTPUT);
+        if (ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.ERROR)) {
+            printMessageOnly("\tERROR ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.ERROR) + "\n", ConsoleViewContentType.LOG_ERROR_OUTPUT);
         }
-        if (ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.WARN)) {
-            printMessageOnly("\tWARN ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN) + "\n", ConsoleViewContentType.LOG_WARNING_OUTPUT);
+        if (ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.WARN)) {
+            printMessageOnly("\tWARN ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.WARN) + "\n", ConsoleViewContentType.LOG_WARNING_OUTPUT);
         }
-        if (ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.INFO)) {
-            printMessageOnly("\tINFO ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO) + "\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
+        if (ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.INFO)) {
+            printMessageOnly("\tINFO ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.INFO) + "\n", ConsoleViewContentType.LOG_INFO_OUTPUT);
         }
-        if (ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.DEBUG)) {
-            printMessageOnly("\tDEBUG ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG) + "\n", ConsoleViewContentType.LOG_DEBUG_OUTPUT);
+        if (ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.DEBUG)) {
+            printMessageOnly("\tDEBUG ITM Port: " + ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.DEBUG) + "\n", ConsoleViewContentType.LOG_DEBUG_OUTPUT);
         }
         return createTab(contentFactory, consoleView.getComponent(), "Output");
     }
@@ -131,15 +131,15 @@ public class ITMViewerToolWindow implements Disposable {
     }
 
     private ConsoleViewContentType getEnabledLogLevelByITMPort(int itmPort) {
-        int errorPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.ERROR);
-        int warnPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN);
-        int infoPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO);
-        int debugPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG);
+        int errorPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.ERROR);
+        int warnPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.WARN);
+        int infoPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.INFO);
+        int debugPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.DEBUG);
 
-        boolean errorLogLevelEnabled = ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.ERROR);
-        boolean warnLogLevelEnabled = ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.WARN);
-        boolean infoLogLevelEnabled = ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.INFO);
-        boolean debugLogLevelEnabled = ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.DEBUG);
+        boolean errorLogLevelEnabled = ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.ERROR);
+        boolean warnLogLevelEnabled = ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.WARN);
+        boolean infoLogLevelEnabled = ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.INFO);
+        boolean debugLogLevelEnabled = ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.DEBUG);
 
         if (itmPort == errorPort && errorLogLevelEnabled) {
             return ConsoleViewContentType.LOG_ERROR_OUTPUT;

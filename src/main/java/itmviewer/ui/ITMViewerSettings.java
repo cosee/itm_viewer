@@ -102,20 +102,20 @@ public class ITMViewerSettings implements Configurable {
     @Override
     public @Nullable
     JComponent createComponent() {
-        int debugLogLevelPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG);
-        int infoLogLevelPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.INFO);
-        int warnLogLevelPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.WARN);
-        int errorLogLevelPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LOGGING_LEVEL.ERROR);
+        int debugLogLevelPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.DEBUG);
+        int infoLogLevelPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.INFO);
+        int warnLogLevelPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.WARN);
+        int errorLogLevelPort = ITMSettingsState.getLogLevelPort(ITMSettingsState.LoggingLevel.ERROR);
 
         debug_model.setValue(debugLogLevelPort);
         info_model.setValue(infoLogLevelPort);
         warn_model.setValue(warnLogLevelPort);
         error_model.setValue(errorLogLevelPort);
 
-        debugChannelCheckBox.setSelected(ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.DEBUG));
-        infoChannelCheckBox.setSelected(ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.INFO));
-        warnChannelCheckBox.setSelected(ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.WARN));
-        errorChannelCheckBox.setSelected(ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.ERROR));
+        debugChannelCheckBox.setSelected(ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.DEBUG));
+        infoChannelCheckBox.setSelected(ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.INFO));
+        warnChannelCheckBox.setSelected(ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.WARN));
+        errorChannelCheckBox.setSelected(ITMSettingsState.getLogLevelEnabled(ITMSettingsState.LoggingLevel.ERROR));
 
         errorChannel.setModel(error_model);
         warnChannel.setModel(warn_model);
@@ -166,15 +166,15 @@ public class ITMViewerSettings implements Configurable {
             throw new ConfigurationException("Port is invalid");
         }
 
-        ITMSettingsState.setChannelPort(ITMSettingsState.LOGGING_LEVEL.DEBUG, debugPort);
-        ITMSettingsState.setChannelPort(ITMSettingsState.LOGGING_LEVEL.INFO, infoPort);
-        ITMSettingsState.setChannelPort(ITMSettingsState.LOGGING_LEVEL.WARN, warnPort);
-        ITMSettingsState.setChannelPort(ITMSettingsState.LOGGING_LEVEL.ERROR, errorPort);
+        ITMSettingsState.setChannelPort(ITMSettingsState.LoggingLevel.DEBUG, debugPort);
+        ITMSettingsState.setChannelPort(ITMSettingsState.LoggingLevel.INFO, infoPort);
+        ITMSettingsState.setChannelPort(ITMSettingsState.LoggingLevel.WARN, warnPort);
+        ITMSettingsState.setChannelPort(ITMSettingsState.LoggingLevel.ERROR, errorPort);
 
-        ITMSettingsState.setLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.DEBUG, debugChannelCheckBox.isSelected());
-        ITMSettingsState.setLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.INFO, infoChannelCheckBox.isSelected());
-        ITMSettingsState.setLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.WARN, warnChannelCheckBox.isSelected());
-        ITMSettingsState.setLogLevelEnabled(ITMSettingsState.LOGGING_LEVEL.ERROR, errorChannelCheckBox.isSelected());
+        ITMSettingsState.setLogLevelEnabled(ITMSettingsState.LoggingLevel.DEBUG, debugChannelCheckBox.isSelected());
+        ITMSettingsState.setLogLevelEnabled(ITMSettingsState.LoggingLevel.INFO, infoChannelCheckBox.isSelected());
+        ITMSettingsState.setLogLevelEnabled(ITMSettingsState.LoggingLevel.WARN, warnChannelCheckBox.isSelected());
+        ITMSettingsState.setLogLevelEnabled(ITMSettingsState.LoggingLevel.ERROR, errorChannelCheckBox.isSelected());
 
         ITMSettingsState.setTclHost(tclHostInput.getText());
         ITMSettingsState.setTclPort(tclPortInput.getText());

@@ -1,65 +1,64 @@
 package itmviewer.state;
 
 import com.intellij.ide.util.PropertiesComponent;
+
 import java.util.Map;
 
 
 public final class ITMSettingsState {
-    private static final String itmTclHostKey = "itmviewer-settings-tclhost";
-    private static final String itmTclPortKey = "itmviewer-settings-tclport";
-    private static final String itmLogPortKey = "itmviewer-settings-itmlogport-";
-    private static final String itmLogPortEnabledKey = "itmviewer-settings-itmlogport-enabled-";
+    private static final String ITM_TCL_HOST_KEY = "itmviewer-settings-tclhost";
+    private static final String ITM_TCL_PORT_KEY = "itmviewer-settings-tclport";
+    private static final String ITM_LOG_PORT_KEY = "itmviewer-settings-itmlogport-";
+    private static final String ITM_LOG_PORT_ENABLED_KEY = "itmviewer-settings-itmlogport-enabled-";
 
-    public enum LOGGING_LEVEL {
+    public enum LoggingLevel {
         DEBUG,
         INFO,
         WARN,
         ERROR
     }
 
-    public final static Map<LOGGING_LEVEL, Integer> itmDefaultLogPorts = Map.ofEntries(Map.entry(LOGGING_LEVEL.DEBUG, 24),
-            Map.entry(LOGGING_LEVEL.INFO, 25),
-            Map.entry(LOGGING_LEVEL.WARN, 26),
-            Map.entry(LOGGING_LEVEL.ERROR, 27));
+    public static final Map<LoggingLevel, Integer> ITM_DEFAULT_LOG_PORTS = Map.of(
+            LoggingLevel.DEBUG, 24,
+            LoggingLevel.INFO, 25,
+            LoggingLevel.WARN, 26,
+            LoggingLevel.ERROR, 27);
 
     public static String getTclHost() {
-        return PropertiesComponent.getInstance().getValue(itmTclHostKey);
+        return PropertiesComponent.getInstance().getValue(ITM_TCL_HOST_KEY);
     }
 
     public static void setTclHost(String val) {
-        PropertiesComponent.getInstance().setValue(itmTclHostKey, val);
+        PropertiesComponent.getInstance().setValue(ITM_TCL_HOST_KEY, val);
     }
 
     public static void setTclPort(String val) {
-        PropertiesComponent.getInstance().setValue(itmTclPortKey, val);
+        PropertiesComponent.getInstance().setValue(ITM_TCL_PORT_KEY, val);
     }
 
     public static String getTclPort() {
-        return PropertiesComponent.getInstance().getValue(itmTclPortKey);
+        return PropertiesComponent.getInstance().getValue(ITM_TCL_PORT_KEY);
     }
 
-    public static void setChannelPort(LOGGING_LEVEL level, int port) {
-        PropertiesComponent.getInstance().setValue(itmLogPortKey + level.name(), port, itmDefaultLogPorts.get(level));
+    public static void setChannelPort(LoggingLevel level, int port) {
+        PropertiesComponent.getInstance().setValue(ITM_LOG_PORT_KEY + level.name(), port, ITM_DEFAULT_LOG_PORTS.get(level));
     }
 
-    public static int getLogLevelPort(LOGGING_LEVEL level) {
-        String portStr = PropertiesComponent.getInstance().getValue(itmLogPortKey + level.name());
+    public static int getLogLevelPort(LoggingLevel level) {
+        String portStr = PropertiesComponent.getInstance().getValue(ITM_LOG_PORT_KEY + level.name());
         if (portStr != null) {
             return Integer.parseInt(portStr);
         }
-        return itmDefaultLogPorts.get(level);
+        return ITM_DEFAULT_LOG_PORTS.get(level);
     }
 
-    public static void setLogLevelEnabled(LOGGING_LEVEL level, boolean enabled) {
-        PropertiesComponent.getInstance().setValue(itmLogPortEnabledKey + level.name(), enabled, true);
+    public static void setLogLevelEnabled(LoggingLevel level, boolean enabled) {
+        PropertiesComponent.getInstance().setValue(ITM_LOG_PORT_ENABLED_KEY + level.name(), enabled, true);
     }
 
-    public static boolean getLogLevelEnabled(LOGGING_LEVEL level) {
-        String enabledStr = PropertiesComponent.getInstance().getValue(itmLogPortEnabledKey + level.name());
-        if (enabledStr != null) {
-            return Boolean.parseBoolean(enabledStr);
-        }
-        return true;
+    public static boolean getLogLevelEnabled(LoggingLevel level) {
+        String enabledStr = PropertiesComponent.getInstance().getValue(ITM_LOG_PORT_ENABLED_KEY + level.name());
+        return enabledStr == null || Boolean.parseBoolean(enabledStr);
     }
 
 }

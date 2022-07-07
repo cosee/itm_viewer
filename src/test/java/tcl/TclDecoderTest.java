@@ -32,7 +32,7 @@ public class TclDecoderTest {
         byte[] sample_data = sample_data_str.getBytes();
 
         byte[] result = TclDecoder.parseTclData(sample_data);
-        assertNull(result);
+        assertEquals(0, result.length);
     }
 
     @Test

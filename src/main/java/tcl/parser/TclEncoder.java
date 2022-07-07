@@ -1,12 +1,13 @@
 package tcl.parser;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TclEncoder implements TclBase {
 
-    @NotNull
-    public static byte[] generate_tcl_command(
-            @NotNull String command) {
+    public static byte[] generateTclCommand(@NotNull String command) {
         byte[] res = command.getBytes();
         return Common.concatByte(res, field_terminator);
     }

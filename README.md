@@ -13,23 +13,34 @@ This plugin parses the TCL RPC Server output of openocd. In order to activate it
 * openocd
 * CLion
 
-Example config for STM32F746NG-Discovery:
+Example config for STM32F411 "blackpill": \
+***Note:*** Set your CPU clock value in `tpiu config internal - uart off 100000000` otherwise it won't work
+
 ```
-source [find interface/stlink-v2-1.cfg]
+# OpenOCD configuration for the ("blackpill") STM32F411CUX development board
+# External v2.0 stlink
+source [find interface/stlink.cfg]
+
 transport select hla_swd
 set WORKAREASIZE 0x40000
 
-source [find target/stm32f7x.cfg]
+source [find target/stm32f4x.cfg]
 
 # activate tcl server
+itm ports on
 tcl_port 6666
-# for configuration please see §16.6.3 http://openocd.org/doc/html/Architecture-and-Core-Commands.html 
-tpiu config internal - uart off 168000000
+# for configuration please see §16.6.3 http://openocd.org/doc/html/Architecture-and-Core-Commands.html
+tpiu config internal - uart off 100000000
 # activate ports (configurable)
 itm port 24 on
 itm port 25 on
 itm port 26 on
 itm port 27 on
+
+reset_config none
+
+init
+arm semihosting enable
 ```
 And for the corresponding configuration in the CLion plugin config:
 ![ITM Viewer Plugin Configuration](./doc/itm_viewer_settings.png)
@@ -74,16 +85,21 @@ void itm_test(void *pvParameters) {
 
 ### Installing
 #### JetBrains Plugin Repository
-ITM Viewer is availabe in the JetBrains Plugin Repository https://plugins.jetbrains.com/plugin/14163-itm-viewer.
+ITM Viewer is available in the JetBrains Plugin Repository https://plugins.jetbrains.com/plugin/14163-itm-viewer.
 
 #### Manual
 The plugin uses the jetbrains gradle plugin template. In order to build it you have to pull the dependencies and build the release version:
 
 `gradle buildPlugin`
 
-To install from disk follow this guide: [here](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk)
-
-*The zipped plugin is also available under Github Releases*
+After project build:
+- Copy from `<Project root>/build/libs/itm_viewer-1.1.0.jar`
+- To `<Clion instalation folder>/plugins/itm-viewer` folder
+- Then open IDE: Settings -> Plugins -> enable plugin
+- ![Plugin](./doc/plugin.png)
+  
+#### Run configuration
+![Run/Debug](./doc/run_config.png)
 
 ## Authors
 
