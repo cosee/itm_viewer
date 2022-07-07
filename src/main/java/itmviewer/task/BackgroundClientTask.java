@@ -3,6 +3,7 @@ package itmviewer.task;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import itmviewer.ui.ITMViewerToolWindow;
+import org.assertj.core.util.Arrays;
 import tcl.client.TclTcpClient;
 import tcl.commands.StartTraceCommand;
 import tcl.itm.ITMDecoder;
@@ -67,7 +68,7 @@ public class BackgroundClientTask implements Runnable {
                 continue;
             }
             byte[] itmLine = TclDecoder.parseTclData(tclLine);
-            if (itmLine == null) {
+            if (itmLine.length == 0) {
                 continue;
             }
             List<TclEntity> entities = ITMDecoder.parseITMData(itmLine);
