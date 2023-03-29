@@ -1,4 +1,3 @@
-⚡ Check out my (german) remote talk about embedded development. We will start with a quick kick-start and get into debugging practices. Sign up [here](https://www.eventbrite.de/e/embedded-entwicklung-ist-hart-aber-wir-sind-harter-tickets-99012865145?aff=mc)
 # ITM Viewer
 
 ITM Viewer allows you to view the messages sent through the ARM ITM data channels.
@@ -8,45 +7,31 @@ ITM Viewer allows you to view the messages sent through the ARM ITM data channel
 ![ITM Viewer Plugin Demo](./doc/demo.gif)
 
 ## Getting Started
-This plugin parses the TCL RPC Server output of openocd. In order to activate it you must activate the tcl server.
+
+This plugin parses the TCL RPC Server output of OpenOCD. In order to activate it you must activate the tcl server.
+
 ### Prerequisites
-* openocd
+
+* OpenOCD
 * CLion
 
-Example config for STM32F411 "blackpill": \
-***Note:*** Set your CPU clock value in `tpiu config internal - uart off 100000000` otherwise it won't work
+### OpenOCD Configurations
 
-```
-# OpenOCD configuration for the ("blackpill") STM32F411CUX development board
-# External v2.0 stlink
-source [find interface/stlink.cfg]
+***Note:*** OpenOCD has to be configured with the Board's CPU clock. Make sure that the OpenOCD config matches the clock
+in this line `tpiu config internal - uart off ${clock in Hz}`, otherwise it won't work.
 
-transport select hla_swd
-set WORKAREASIZE 0x40000
+| Board                                                                       | OpenOCD Configuration                               |
+|-----------------------------------------------------------------------------|-----------------------------------------------------|
+| [STM32F746NG](https://www.st.com/en/evaluation-tools/32f746gdiscovery.html) | [stm32f7.cfg](./doc/configurations/stm32f7.cfg)     |
+| STM32F411CUX ("blackpill")                                                  | [stm32f411.cfg](./doc/configurations/stm32f411.cfg) |
 
-source [find target/stm32f4x.cfg]
-
-# activate tcl server
-itm ports on
-tcl_port 6666
-# for configuration please see §16.6.3 http://openocd.org/doc/html/Architecture-and-Core-Commands.html
-tpiu config internal - uart off 100000000
-# activate ports (configurable)
-itm port 24 on
-itm port 25 on
-itm port 26 on
-itm port 27 on
-
-reset_config none
-
-init
-arm semihosting enable
-```
 And for the corresponding configuration in the CLion plugin config:
 ![ITM Viewer Plugin Configuration](./doc/itm_viewer_settings.png)
 
-### Example 
+### Example
+
 A minimal C example to send message via ITM (for STM32F746):
+
 ```c
 #define LOG_DEBUG_LEVEL 24
 #define LOG_INFO_LEVEL 25
@@ -84,30 +69,40 @@ void itm_test(void *pvParameters) {
 ```
 
 ### Installing
+
 #### JetBrains Plugin Repository
+
 ITM Viewer is available in the JetBrains Plugin Repository https://plugins.jetbrains.com/plugin/14163-itm-viewer.
 
 #### Manual
-The plugin uses the jetbrains gradle plugin template. In order to build it you have to pull the dependencies and build the release version:
+
+The plugin uses the jetbrains gradle plugin template. In order to build it you have to pull the dependencies and build
+the release version:
 
 `gradle buildPlugin`
 
 After project build:
-- Copy from `<Project root>/build/libs/itm_viewer-1.1.0.jar`
+
+- Copy from `<Project root>/build/libs/itm_viewer-1.2.0.jar`
 - To `<Clion instalation folder>/plugins/itm-viewer` folder
 - Then open IDE: Settings -> Plugins -> enable plugin
 - ![Plugin](./doc/plugin.png)
-  
+
 #### Run configuration
+
 ![Run/Debug](./doc/run_config.png)
 
 ## Authors
 
 * **Mohamad Ramadan** - [ramdadam](https://github.com/ramdadam)
 
+## Contributors
+* [ximtech](https://github.com/ximtech)
+* [pperle](https://github.com/pperle)
+
 Thanks for the awesome work with [cmake-conan](https://github.com/conan-io/cmake-conan) that helped me get started.
- 
-Also big thanks to my colleagues at cosee for helping me out with the Java stuff :) 
+
+Also big thanks to my colleagues at cosee for helping me out with the Java stuff :)
 
 ## License
 
