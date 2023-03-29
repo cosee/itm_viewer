@@ -78,6 +78,6 @@ public class TclDecoderTest {
 
         boolean rewindSuccess = TclDecoder.rewindToTraceDataHeader(sample_data);
         assertFalse(rewindSuccess);
-        assertTrue(Arrays.equals(sample_data.array(), exceptedData.array()));
+        assertArrayEquals(sample_data.array(), exceptedData.array());
     }
 }

@@ -1,7 +1,6 @@
 package itmviewer.service;
 
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import itmviewer.state.ITMSettingsState;
 import itmviewer.task.BackgroundClientTask;
@@ -22,15 +21,13 @@ public class TclService {
         return task != null && task.clientIsConnected();
     }
 
-    public boolean openConnection() {
+    public void openConnection() {
         String host = ITMSettingsState.getTclHost();
         String port = ITMSettingsState.getTclPort();
         if(!isConnected()) {
             task = new BackgroundClientTask(project, host, port);
             threadFuture = ApplicationManager.getApplication().executeOnPooledThread(task);
-            return true;
         }
-        return false;
     }
 
     public boolean closeConnection() {
@@ -50,6 +47,6 @@ public class TclService {
     }
 
     public static TclService getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, TclService.class);
+        return project.getService(TclService.class);
     }
 }

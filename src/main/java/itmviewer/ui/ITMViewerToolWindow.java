@@ -57,7 +57,7 @@ public class ITMViewerToolWindow implements Disposable {
 
     public void initToolWindow(Project project, ToolWindow toolWindow) {
         contentManager = toolWindow.getContentManager();
-        service = ServiceManager.getService(TclService.class);
+        service = project.getService(TclService.class);
         recreateContent(project);
     }
 
@@ -123,7 +123,7 @@ public class ITMViewerToolWindow implements Disposable {
     }
 
     public void recreateContent(@NotNull Project project) {
-        ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+        ContentFactory contentFactory = ContentFactory.getInstance();
         contentManager.removeAllContents(true);
         Content content;
         content = createConsoleView(project, contentFactory);

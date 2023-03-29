@@ -11,7 +11,7 @@ public class ITMViewerToolWindowFactory implements ToolWindowFactory, DumbAware 
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        ITMViewerToolWindow itmViewerToolWindow = ServiceManager.getService(project, ITMViewerToolWindow.class);
+        ITMViewerToolWindow itmViewerToolWindow = project.getService(ITMViewerToolWindow.class);
         itmViewerToolWindow.initToolWindow(project, toolWindow);
     }
 }
