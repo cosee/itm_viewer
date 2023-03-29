@@ -104,6 +104,10 @@ Thanks for the awesome work with [cmake-conan](https://github.com/conan-io/cmake
 
 Also big thanks to my colleagues at cosee for helping me out with the Java stuff :)
 
+## TODOs
+* add pipeline to lint, test & build
+* update board openocd config for stm32f4
+
 ## License
 
 This project is licensed under the MIT License - see the [License](License) file for details
