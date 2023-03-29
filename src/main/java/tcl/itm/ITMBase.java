@@ -1,7 +1,7 @@
 package tcl.itm;
 
 /**
- * for ITM Trace packet format see  http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0314h/Chdbicbg.html
+ * for ITM Trace packet format see  <a href="https://developer.arm.com/documentation/ddi0314/h/Instrumentation-Trace-Macrocell/About-the-Instrumentation-Trace-Macrocell/Timestamp-packet">SWIT packet layout</a>
  */
 public interface ITMBase {
     int header_size_bitmask = 0x3;

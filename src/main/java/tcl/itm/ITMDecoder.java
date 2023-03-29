@@ -13,7 +13,7 @@ public final class ITMDecoder implements ITMBase {
     /**
      * The calculation of the size field can be simplified by 2^(size_field - 1) but I decided against it to make it
      * easier to comprehend it for others (and of course for me later)
-     * For reference see SWIT packet layout: http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0314h/Chdbicbg.html
+     * For reference see <a href="https://developer.arm.com/documentation/ddi0314/h/Instrumentation-Trace-Macrocell/About-the-Instrumentation-Trace-Macrocell/Timestamp-packet">SWIT packet layout</a>
      *
      * @param size_field: ITM packet size bit field
      * @return size in bytes
@@ -30,7 +30,7 @@ public final class ITMDecoder implements ITMBase {
     }
 
 
-    public static List<TclEntity> parseITMData(@NotNull byte[] itm_data) {
+    public static List<TclEntity> parseITMData(byte @NotNull [] itm_data) {
         if (itm_data.length == 0) {
             return null;
         }

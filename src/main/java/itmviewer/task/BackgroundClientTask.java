@@ -1,9 +1,7 @@
 package itmviewer.task;
 
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import itmviewer.ui.ITMViewerToolWindow;
-import org.assertj.core.util.Arrays;
 import tcl.client.TclTcpClient;
 import tcl.commands.StartTraceCommand;
 import tcl.itm.ITMDecoder;
@@ -23,7 +21,7 @@ public class BackgroundClientTask implements Runnable {
     final ITMViewerToolWindow toolWindow;
 
     public BackgroundClientTask(Project project, String host, String port) {
-        this.toolWindow = ServiceManager.getService(project, ITMViewerToolWindow.class);
+        this.toolWindow = project.getService(ITMViewerToolWindow.class);
         this.host = host;
         this.port = port;
     }

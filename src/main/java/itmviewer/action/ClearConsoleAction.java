@@ -2,7 +2,6 @@ package itmviewer.action;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import itmviewer.ui.ITMViewerToolWindow;
@@ -16,7 +15,7 @@ public class ClearConsoleAction extends AnAction implements DumbAware {
         if (project == null) {
             return;
         }
-        ITMViewerToolWindow itmViewerToolWindow = ServiceManager.getService(project, ITMViewerToolWindow.class);
+        ITMViewerToolWindow itmViewerToolWindow = project.getService(ITMViewerToolWindow.class);
         itmViewerToolWindow.recreateContent(project);
     }
 }
